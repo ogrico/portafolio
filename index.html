@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>geovany.rico | Portafolio de Geovany Rico</title>
+<meta name="description" content="Portafolio de Geovany Rico (OGRico): e-commerce, APIs, integraciones y landing pages.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231C1B4D'/%3E%3Ccircle cx='32' cy='32' r='14' fill='%23FFB21A'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wdth,wght@12..96,75..100,400..800&family=Onest:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+/* =========================================================
+   1. TOKENS DE MARCA  (og.rico)
+   Cambia aquí y cambia todo el sitio.
+   ========================================================= */
+:root {
+  /* Color: tinta + frutas */
+  --tinta: #1C1B4D;        /* índigo profundo: texto y fondos oscuros */
+  --tinta-suave: #55547F;  /* texto secundario */
+  --papel: #F4F2FB;        /* fondo general, lila muy claro */
+  --nube: #FFFFFF;         /* superficies */
+  --mango: #FFB21A;        /* acento principal y e-commerce */
+  --guayaba: #FF5C7A;      /* acento secundario e integraciones */
+  --feijoa: #2BB38A;       /* landing pages y estado "en vivo" */
+  --linea: #DCD8EE;        /* bordes suaves */
+
+  /* Tipografía */
+  --fuente-titulo: "Bricolage Grotesque", "Arial Narrow", system-ui, sans-serif;
+  --fuente-texto: "Onest", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --t-xs: 0.8rem;
+  --t-sm: 0.9rem;
+  --t-base: 1.0625rem;
+  --t-md: 1.3rem;
+  --t-lg: clamp(1.6rem, 1.2rem + 1.6vw, 2.1rem);
+  --t-xl: clamp(2.2rem, 1.4rem + 3.6vw, 3.8rem);
+  --t-hero: clamp(3rem, 13.2vw, 12rem);
+
+  /* Espacio (base 4px) */
+  --e-1: 0.25rem; --e-2: 0.5rem; --e-3: 0.75rem; --e-4: 1rem;
+  --e-6: 1.5rem; --e-8: 2rem; --e-12: 3rem; --e-16: 4rem; --e-24: 6rem;
+
+  /* Forma y movimiento */
+  --radio-s: 10px; --radio-m: 20px; --radio-l: 28px; --radio-pill: 999px;
+  --sombra-sticker: 6px 6px 0 var(--tinta);
+  --rapido: 160ms; --medio: 320ms;
+  --curva: cubic-bezier(.2,.8,.2,1);
+  --ancho: 1180px;
+}
+
+/* =========================================================
+   2. BASE
+   ========================================================= */
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; background: var(--papel); color: var(--tinta);
+  font-family: var(--fuente-texto); font-size: var(--t-base); line-height: 1.6;
+}
+h1, h2, h3 { font-family: var(--fuente-titulo); line-height: 1.05; margin: 0; letter-spacing: -0.02em; }
+h2 { font-size: var(--t-xl); font-weight: 700; font-stretch: 85%; }
+h3 { font-size: var(--t-md); font-weight: 700; letter-spacing: -0.01em; line-height: 1.2; }
+p { margin: 0; max-width: 62ch; }
+a { color: inherit; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 3px solid var(--guayaba); outline-offset: 3px; border-radius: 6px; }
+.contenedor { width: min(100% - 2.5rem, var(--ancho)); margin-inline: auto; }
+.seccion { padding-block: var(--e-24); }
+.seccion-cabeza { display: grid; gap: var(--e-4); margin-bottom: var(--e-12); }
+.seccion-cabeza p { color: var(--tinta-suave); }
+.saltar { position: absolute; left: -999px; top: 0; background: var(--mango); padding: var(--e-3) var(--e-4); z-index: 99; }
+.saltar:focus { left: var(--e-4); top: var(--e-4); }
+
+/* =========================================================
+   3. COMPONENTES
+   ========================================================= */
+/* Marca: el punto es el símbolo */
+.marca { font-family: var(--fuente-titulo); font-weight: 800; font-size: 1.35rem; text-decoration: none; letter-spacing: -0.03em; display: inline-flex; align-items: baseline; }
+.punto { display: inline-block; width: .32em; height: .32em; border-radius: 50%; background: var(--mango); margin-inline: .04em; }
+
+/* Botones */
+.boton {
+  display: inline-flex; align-items: center; gap: var(--e-2);
+  padding: .85rem 1.4rem; border-radius: var(--radio-pill); border: 2px solid transparent;
+  font-weight: 600; text-decoration: none; line-height: 1;
+  transition: transform var(--rapido) var(--curva), box-shadow var(--rapido) var(--curva);
+}
+.boton:hover { transform: translate(-2px, -2px); }
+.boton-mango { background: var(--mango); color: var(--tinta); }
+.boton-mango:hover { box-shadow: 4px 4px 0 var(--guayaba); }
+.boton-linea { border-color: currentColor; background: transparent; }
+.boton-tinta { background: var(--tinta); color: var(--papel); }
+.boton-tinta:hover { box-shadow: 4px 4px 0 var(--mango); }
+
+/* Chips */
+.chip { display: inline-block; padding: .3rem .7rem; border-radius: var(--radio-pill); background: var(--papel); font-size: var(--t-xs); font-weight: 500; }
+
+/* Navegación */
+.nav { position: sticky; top: 0; z-index: 20; background: var(--tinta); color: var(--papel); }
+.nav-fila { display: flex; align-items: center; justify-content: space-between; gap: var(--e-4); padding-block: var(--e-3); }
+.nav-links { display: flex; gap: var(--e-6); list-style: none; margin: 0; padding: 0; font-size: var(--t-sm); }
+.nav-links a { text-decoration: none; padding-block: var(--e-2); border-bottom: 2px solid transparent; }
+.nav-links a:hover { border-color: var(--mango); }
+@media (max-width: 640px) { .nav-links li:not(.nav-fijo) { display: none; } }
+
+/* Hero */
+.hero { background: var(--tinta); color: var(--papel); padding-block: var(--e-16) var(--e-24); overflow: hidden; }
+.hero-nombre {
+  font-size: var(--t-hero); font-weight: 800; font-stretch: 78%; letter-spacing: -0.045em;
+  line-height: .9; white-space: nowrap; margin-left: -0.04em;
+}
+.hero-nombre .punto { animation: caer 900ms var(--curva) 200ms both; }
+@keyframes caer {
+  0% { transform: translateY(-120vh) scale(1); }
+  60% { transform: translateY(0) scale(1.25, .8); }
+  78% { transform: translateY(-.35em) scale(.95, 1.05); }
+  100% { transform: translateY(0) scale(1); }
+}
+.hero-pie { display: grid; gap: var(--e-8); margin-top: var(--e-12); grid-template-columns: 1.3fr 1fr; align-items: end; }
+.hero-frase { font-family: var(--fuente-titulo); font-size: var(--t-lg); font-weight: 500; line-height: 1.2; max-width: 24ch; letter-spacing: -0.01em; }
+.hero-detalle { color: #C9C6E8; display: grid; gap: var(--e-6); }
+.hero-acciones { display: flex; flex-wrap: wrap; gap: var(--e-3); }
+@media (max-width: 760px) { .hero-pie { grid-template-columns: 1fr; } }
+
+/* Proyectos */
+.filtros { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-bottom: var(--e-8); }
+.filtro { border: 2px solid var(--tinta); background: transparent; border-radius: var(--radio-pill); padding: .5rem 1rem; font-weight: 600; font-size: var(--t-sm); }
+.filtro[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
+.rejilla { display: grid; gap: var(--e-6); grid-template-columns: repeat(6, 1fr); }
+.tarjeta {
+  grid-column: span 2; background: var(--nube); border-radius: var(--radio-m); overflow: hidden;
+  display: flex; flex-direction: column; border: 0; padding: 0; text-align: left;
+  transition: transform var(--medio) var(--curva), box-shadow var(--medio) var(--curva);
+}
+.tarjeta.ancha { grid-column: span 4; }
+.tarjeta:hover, .tarjeta:focus-visible { transform: translate(-4px, -4px); box-shadow: var(--sombra-sticker); }
+.tarjeta[hidden] { display: none; }
+.portada { aspect-ratio: 16 / 9; display: grid; place-items: center; }
+.tarjeta.ancha .portada { aspect-ratio: 21 / 9; }
+.portada svg { width: 100%; height: 100%; display: block; }
+.tipo-ecommerce .portada { background: var(--mango); }
+.tipo-api .portada { background: var(--tinta); }
+.tipo-integracion .portada { background: var(--guayaba); }
+.tipo-landing .portada { background: var(--feijoa); }
+.tarjeta-cuerpo { padding: var(--e-6); display: grid; gap: var(--e-3); flex: 1; align-content: start; }
+.tarjeta-tipo { font-size: var(--t-sm); font-weight: 600; color: var(--tinta-suave); display: flex; align-items: center; gap: var(--e-2); }
+.tarjeta-tipo::before { content: ""; width: .6em; height: .6em; border-radius: 50%; background: var(--color-tipo, var(--mango)); }
+.tipo-ecommerce { --color-tipo: var(--mango); }
+.tipo-api { --color-tipo: var(--tinta); }
+.tipo-integracion { --color-tipo: var(--guayaba); }
+.tipo-landing { --color-tipo: var(--feijoa); }
+.tarjeta-titulo { font-family: var(--fuente-titulo); font-size: var(--t-md); font-weight: 700; line-height: 1.2; letter-spacing: -0.01em; }
+.tarjeta-resumen { color: var(--tinta-suave); font-size: var(--t-sm); }
+.tarjeta-stack { display: flex; flex-wrap: wrap; gap: var(--e-2); margin-top: var(--e-2); }
+.aviso { margin-top: var(--e-8); font-size: var(--t-sm); color: var(--tinta-suave); border-left: 4px solid var(--mango); padding-left: var(--e-4); }
+@media (max-width: 900px) { .tarjeta, .tarjeta.ancha { grid-column: span 3; } .tarjeta.ancha .portada { aspect-ratio: 16 / 9; } }
+@media (max-width: 600px) { .tarjeta, .tarjeta.ancha { grid-column: span 6; } }
+
+/* Detalle de proyecto (dialog) */
+dialog.detalle { border: 0; padding: 0; border-radius: var(--radio-l); width: min(92vw, 760px); max-height: 88vh; color: var(--tinta); background: var(--nube); box-shadow: 10px 10px 0 var(--mango); }
+dialog.detalle::backdrop { background: rgba(28, 27, 77, .72); }
+dialog.detalle[open] { animation: abrir var(--medio) var(--curva); }
+@keyframes abrir { from { transform: translateY(24px) scale(.97); opacity: 0; } }
+.detalle-cuerpo { padding: var(--e-8); display: grid; gap: var(--e-6); }
+.detalle-cabeza { display: flex; justify-content: space-between; align-items: start; gap: var(--e-4); }
+.detalle-cabeza h3 { font-size: var(--t-lg); }
+.cerrar { border: 2px solid var(--tinta); background: transparent; border-radius: 50%; width: 2.6rem; height: 2.6rem; flex: none; font-size: 1.2rem; line-height: 1; }
+.ficha { display: grid; gap: var(--e-4); margin: 0; }
+.ficha div { display: grid; grid-template-columns: 7.5rem 1fr; gap: var(--e-4); border-top: 1px solid var(--linea); padding-top: var(--e-4); }
+.ficha dt { font-weight: 600; }
+.ficha dd { margin: 0; color: var(--tinta-suave); }
+.consola { background: var(--tinta); color: #E9E7FA; border-radius: var(--radio-m); padding: var(--e-6); font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace; font-size: var(--t-sm); display: grid; gap: var(--e-4); }
+.consola pre { margin: 0; white-space: pre-wrap; min-height: 6.5em; }
+.consola .ok { color: var(--feijoa); font-weight: 700; }
+.consola .boton { font-family: var(--fuente-texto); }
+.consola-fila { display: flex; flex-wrap: wrap; gap: var(--e-3); align-items: center; justify-content: space-between; }
+.detalle-acciones { display: flex; flex-wrap: wrap; gap: var(--e-3); }
+@media (max-width: 560px) { .ficha div { grid-template-columns: 1fr; gap: var(--e-1); } .detalle-cuerpo { padding: var(--e-6); } }
+
+/* Hitos */
+.hitos { background: var(--nube); }
+.linea-tiempo { list-style: none; margin: 0; padding: 0; display: grid; }
+.hito { display: grid; grid-template-columns: 9rem 1fr; gap: var(--e-8); padding-block: var(--e-8); border-top: 2px solid var(--tinta); }
+.hito:last-child { border-bottom: 2px solid var(--tinta); }
+.hito-ano { font-family: var(--fuente-titulo); font-size: var(--t-lg); font-weight: 800; font-stretch: 80%; }
+.hito-ano.pendiente { color: var(--tinta-suave); font-weight: 500; font-size: var(--t-base); border: 2px dashed var(--linea); border-radius: var(--radio-s); padding: var(--e-2) var(--e-3); align-self: start; justify-self: start; font-family: var(--fuente-texto); }
+.hito-cuerpo { display: grid; gap: var(--e-2); }
+.hito-cifra { font-family: var(--fuente-titulo); font-size: var(--t-xl); font-weight: 800; font-stretch: 80%; line-height: 1; letter-spacing: -0.03em; }
+.hito-cifra mark { background: linear-gradient(transparent 62%, var(--mango) 62%); color: inherit; padding-inline: .08em; }
+.hito-cuerpo p { color: var(--tinta-suave); }
+.hito-cuerpo p.hito-cifra { color: var(--tinta); }
+@media (max-width: 640px) { .hito { grid-template-columns: 1fr; gap: var(--e-3); } }
+
+/* Sobre mí */
+.sobre { display: grid; grid-template-columns: 1fr 1fr; gap: var(--e-16); align-items: start; }
+.sobre-texto { display: grid; gap: var(--e-6); }
+.sobre-texto p { font-size: var(--t-md); line-height: 1.5; }
+.stack { display: grid; gap: var(--e-6); margin: 0; }
+.stack div { display: grid; gap: var(--e-3); border-top: 2px solid var(--tinta); padding-top: var(--e-4); }
+.stack dt { font-family: var(--fuente-titulo); font-weight: 700; font-size: var(--t-md); }
+.stack dd { margin: 0; display: flex; flex-wrap: wrap; gap: var(--e-2); }
+.stack .chip { background: var(--nube); font-size: var(--t-sm); }
+@media (max-width: 800px) { .sobre { grid-template-columns: 1fr; gap: var(--e-12); } }
+
+/* Contacto */
+.contacto { background: var(--tinta); color: var(--papel); }
+.contacto h2 { font-size: clamp(2.6rem, 9vw, 7rem); font-stretch: 78%; font-weight: 800; letter-spacing: -0.04em; line-height: .95; }
+.contacto .seccion-cabeza p { color: #C9C6E8; }
+.canales { list-style: none; margin: 0; padding: 0; }
+.canal a {
+  display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: var(--e-4);
+  padding: var(--e-6) var(--e-4); border-top: 2px solid rgba(244, 242, 251, .25); text-decoration: none;
+  transition: background var(--rapido), color var(--rapido), padding var(--medio) var(--curva);
+}
+.canal:last-child a { border-bottom: 2px solid rgba(244, 242, 251, .25); }
+.canal a:hover, .canal a:focus-visible { background: var(--mango); color: var(--tinta); padding-left: var(--e-8); }
+.canal-nombre { font-family: var(--fuente-titulo); font-size: var(--t-lg); font-weight: 700; }
+.canal-dato { font-size: var(--t-sm); overflow-wrap: anywhere; text-align: right; }
+.pie { background: var(--tinta); color: #C9C6E8; font-size: var(--t-sm); padding-block: var(--e-8); }
+.pie-fila { display: flex; flex-wrap: wrap; justify-content: space-between; gap: var(--e-4); align-items: center; }
+.pie .marca { color: var(--papel); }
+
+/* Movimiento reducido */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
+</style>
+</head>
+<body>
+<a class="saltar" href="#proyectos">Saltar a los proyectos</a>
+
+<header class="nav">
+  <div class="contenedor nav-fila">
+    <a class="marca" href="#inicio" aria-label="og.rico, inicio">og<span class="punto"></span>rico</a>
+    <nav aria-label="Principal">
+      <ul class="nav-links">
+        <li><a href="#proyectos">Proyectos</a></li>
+        <li><a href="#hitos">Hitos</a></li>
+        <li><a href="#sobre-mi">Sobre mí</a></li>
+        <li class="nav-fijo"><a href="#contacto">Contacto</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="hero" id="inicio">
+    <div class="contenedor">
+      <h1 class="hero-nombre" aria-label="geovany punto rico">geovany<span class="punto"></span>rico</h1>
+      <div class="hero-pie">
+        <p class="hero-frase">Diseño y construyo software de punta a punta: tiendas, APIs e integraciones que sí llegan a producción.</p>
+        <div class="hero-detalle">
+          <p>Soy Geovany Rico, ingeniero de sistemas y líder técnico en Bogotá. En GitHub me encuentras como OGRico.</p>
+          <div class="hero-acciones">
+            <a class="boton boton-mango" href="#proyectos">Ver proyectos</a>
+            <a class="boton boton-linea" href="#contacto">Escribirme</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seccion" id="proyectos">
+    <div class="contenedor">
+      <div class="seccion-cabeza">
+        <h2>Proyectos y demos</h2>
+        <p>Cada proyecto tiene su demo. Filtra por tipo y abre el que quieras para ver el problema, mi rol y el resultado.</p>
+      </div>
+      <div class="filtros" role="group" aria-label="Filtrar proyectos por tipo" id="filtros"></div>
+      <div class="rejilla" id="rejilla"></div>
+      <p class="aviso">Los proyectos de esta maqueta son ejemplos. Reemplázalos con los tuyos en la lista <code>PROYECTOS</code> del script.</p>
+    </div>
+  </section>
+
+  <section class="seccion hitos" id="hitos">
+    <div class="contenedor">
+      <div class="seccion-cabeza">
+        <h2>Hitos en empresa</h2>
+        <p>Resultados medibles de mi trabajo en el sector privado.</p>
+      </div>
+      <ol class="linea-tiempo">
+        <li class="hito">
+          <span class="hito-ano pendiente">Año</span>
+          <div class="hito-cuerpo">
+            <p class="hito-cifra"><mark>10.000 USD</mark> menos al año</p>
+            <h3>Ahorro en AWS con FinOps</h3>
+            <p>Resultado de las hackatones de FinOps en las que participé: revisión de consumo y ajuste de recursos en la nube.</p>
+          </div>
+        </li>
+        <li class="hito">
+          <span class="hito-ano pendiente">Año</span>
+          <div class="hito-cuerpo">
+            <p class="hito-cifra"><mark>2 años</mark> liderando</p>
+            <h3>Liderazgo técnico de equipos</h3>
+            <p>Decisiones de arquitectura, diseño y modelado de soluciones de punta a punta. Agrega aquí empresa, tamaño del equipo y un resultado.</p>
+          </div>
+        </li>
+        <li class="hito">
+          <span class="hito-ano pendiente">Año</span>
+          <div class="hito-cuerpo">
+            <p class="hito-cifra"><mark>AWS y Azure</mark> en producción</p>
+            <h3>Arquitecturas cloud</h3>
+            <p>Kubernetes en EKS, Lambda y S3 en AWS; Container Apps y App Service en Azure.</p>
+          </div>
+        </li>
+        <li class="hito">
+          <span class="hito-ano">Hoy</span>
+          <div class="hito-cuerpo">
+            <h3>Maestría en Arquitectura de Software</h3>
+            <p>En curso, mientras sigo construyendo producto y acompañando a otros desarrolladores en mentorías.</p>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="seccion" id="sobre-mi">
+    <div class="contenedor sobre">
+      <div class="sobre-texto">
+        <h2>Sobre mí</h2>
+        <p>Llevo más de cuatro años desarrollando software y dos liderando equipos técnicos. Me gusta entender el negocio antes de escribir la primera línea, y entregar algo que se pueda mantener.</p>
+        <p>Fuera del código me encuentras en la bici o subiendo montañas.</p>
+        <div><a class="boton boton-tinta" href="#contacto">Hablemos</a></div>
+      </div>
+      <dl class="stack">
+        <div><dt>Backend</dt><dd><span class="chip">Java</span><span class="chip">Spring</span><span class="chip">Node.js</span><span class="chip">Express</span></dd></div>
+        <div><dt>Frontend</dt><dd><span class="chip">Angular</span></dd></div>
+        <div><dt>Datos</dt><dd><span class="chip">PostgreSQL</span><span class="chip">MySQL</span><span class="chip">SQL Server</span></dd></div>
+        <div><dt>Nube</dt><dd><span class="chip">AWS EKS</span><span class="chip">Lambda</span><span class="chip">S3</span><span class="chip">Azure Container Apps</span><span class="chip">App Service</span></dd></div>
+      </dl>
+    </div>
+  </section>
+
+  <section class="seccion contacto" id="contacto">
+    <div class="contenedor">
+      <div class="seccion-cabeza">
+        <h2>Cuéntame qué quieres construir<span class="punto"></span></h2>
+        <p>Respondo más rápido por WhatsApp.</p>
+      </div>
+      <!-- Reemplaza los datos de contacto por los reales -->
+      <ul class="canales">
+        <li class="canal"><a href="https://wa.me/57XXXXXXXXXX"><span class="canal-nombre">WhatsApp</span><span class="canal-dato">+57 XXX XXX XXXX</span></a></li>
+        <li class="canal"><a href="https://www.linkedin.com/in/tu-usuario"><span class="canal-nombre">LinkedIn</span><span class="canal-dato">linkedin.com/in/tu-usuario</span></a></li>
+        <li class="canal"><a href="mailto:tu-correo@dominio.com"><span class="canal-nombre">Correo</span><span class="canal-dato">tu-correo@dominio.com</span></a></li>
+        <li class="canal"><a href="https://github.com/OGRico"><span class="canal-nombre">GitHub</span><span class="canal-dato">github.com/OGRico</span></a></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer class="pie">
+  <div class="contenedor pie-fila">
+    <a class="marca" href="#inicio" aria-label="og.rico, inicio">og<span class="punto"></span>rico</a>
+    <span>Hecho en Bogotá por Geovany Rico</span>
+  </div>
+</footer>
+
+<dialog class="detalle" id="detalle" aria-labelledby="detalle-titulo">
+  <div class="detalle-cuerpo" id="detalle-cuerpo"></div>
+</dialog>
+
+<script>
+/* =========================================================
+   DATOS: en el sitio real cada proyecto será un archivo
+   Markdown en src/content/proyectos/. Aquí viven en una lista.
+   ========================================================= */
+const TIPOS = {
+  ecommerce:   { nombre: "E-commerce",    plural: "E-commerce" },
+  api:         { nombre: "API",           plural: "APIs" },
+  integracion: { nombre: "Integración",   plural: "Integraciones" },
+  landing:     { nombre: "Landing page",  plural: "Landing pages" }
+};
+
+const PROYECTOS = [
+  { id: "tienda", tipo: "ecommerce", ancha: true, titulo: "Tienda en línea con pagos",
+    resumen: "Catálogo, carrito, cupones y pago en línea.",
+    problema: "El negocio vendía solo por chat y perdía pedidos.",
+    rol: "Arquitectura, backend y despliegue.",
+    resultado: "Escribe aquí la cifra: pedidos, conversión o tiempo ahorrado.",
+    stack: ["Angular", "Spring", "PostgreSQL"], demo: "#", codigo: "https://github.com/OGRico" },
+  { id: "api-pedidos", tipo: "api", titulo: "API de pedidos",
+    resumen: "API REST documentada, con autenticación y pruebas.",
+    problema: "Varios canales necesitaban consultar pedidos con un mismo contrato.",
+    rol: "Diseño del contrato, desarrollo y documentación.",
+    resultado: "Escribe aquí la cifra: latencia, consumidores o disponibilidad.",
+    stack: ["Java", "Spring", "AWS Lambda"], demo: "#", codigo: "https://github.com/OGRico",
+    endpoint: "GET /v1/pedidos/1042",
+    respuesta: { id: 1042, estado: "entregado", total: 184900, moneda: "COP", items: 3 } },
+  { id: "integracion-erp", tipo: "integracion", titulo: "Integración con ERP",
+    resumen: "Sincroniza inventario y facturas entre dos sistemas.",
+    problema: "El inventario se digitaba dos veces y no cuadraba.",
+    rol: "Diseño de la integración y manejo de errores.",
+    resultado: "Escribe aquí la cifra: horas ahorradas o errores evitados.",
+    stack: ["Node.js", "Express", "SQL Server"], demo: "#", codigo: "https://github.com/OGRico" },
+  { id: "landing-marca", tipo: "landing", titulo: "Landing de marca",
+    resumen: "Página de una sola vista con pedido por WhatsApp.",
+    problema: "La marca no tenía dónde mostrar su catálogo.",
+    rol: "Diseño, maquetación y publicación.",
+    resultado: "Escribe aquí la cifra: visitas, pedidos o tiempo de carga.",
+    stack: ["HTML", "CSS", "GitHub Pages"], demo: "#", codigo: "https://github.com/OGRico" },
+  { id: "api-pagos", tipo: "api", titulo: "API de conciliación de pagos",
+    resumen: "Cruza pagos recibidos contra facturas pendientes.",
+    problema: "La conciliación era manual y tomaba días.",
+    rol: "Modelado de datos y desarrollo.",
+    resultado: "Escribe aquí la cifra: tiempo de conciliación.",
+    stack: ["Java", "PostgreSQL", "EKS"], demo: "#", codigo: "https://github.com/OGRico",
+    endpoint: "GET /v1/conciliaciones/hoy",
+    respuesta: { fecha: "2026-11-15", pagos: 128, conciliados: 126, pendientes: 2 } }
+];
+
+/* Portadas dibujadas en SVG: cada tipo tiene su propio dibujo */
+const PORTADAS = {
+  ecommerce: `<svg viewBox="0 0 320 180" aria-hidden="true"><g fill="#1C1B4D"><rect x="40" y="38" width="68" height="84" rx="12"/><rect x="126" y="38" width="68" height="84" rx="12"/><rect x="212" y="38" width="68" height="84" rx="12"/></g><g fill="#FFB21A"><circle cx="74" cy="72" r="16"/><rect x="144" y="56" width="32" height="32" rx="8"/><path d="M246 54l18 32h-36z"/></g><g fill="#F4F2FB"><rect x="52" y="102" width="44" height="8" rx="4"/><rect x="138" y="102" width="44" height="8" rx="4"/><rect x="224" y="102" width="44" height="8" rx="4"/></g><rect x="212" y="134" width="68" height="18" rx="9" fill="#FF5C7A"/></svg>`,
+  api: `<svg viewBox="0 0 320 180" aria-hidden="true"><rect x="40" y="40" width="54" height="22" rx="11" fill="#2BB38A"/><rect x="104" y="46" width="130" height="10" rx="5" fill="#F4F2FB"/><g fill="#55547F"><rect x="40" y="82" width="20" height="10" rx="5"/><rect x="56" y="102" width="20" height="10" rx="5"/><rect x="56" y="122" width="20" height="10" rx="5"/><rect x="40" y="142" width="20" height="10" rx="5"/></g><rect x="86" y="102" width="110" height="10" rx="5" fill="#FFB21A"/><rect x="86" y="122" width="74" height="10" rx="5" fill="#FF5C7A"/><circle cx="262" cy="118" r="20" fill="none" stroke="#F4F2FB" stroke-width="6"/><path d="M252 118l8 8 12-16" fill="none" stroke="#2BB38A" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/></svg>`,
+  integracion: `<svg viewBox="0 0 320 180" aria-hidden="true"><g fill="none" stroke="#1C1B4D" stroke-width="6" stroke-linecap="round"><path d="M92 90h46"/><path d="M182 78l46-26"/><path d="M182 102l46 26"/></g><rect x="36" y="62" width="56" height="56" rx="14" fill="#1C1B4D"/><circle cx="160" cy="90" r="26" fill="#FFB21A"/><rect x="228" y="26" width="56" height="48" rx="12" fill="#F4F2FB"/><rect x="228" y="106" width="56" height="48" rx="12" fill="#F4F2FB"/><circle cx="64" cy="90" r="9" fill="#FF5C7A"/><g fill="#1C1B4D"><rect x="240" y="44" width="32" height="8" rx="4"/><rect x="240" y="124" width="32" height="8" rx="4"/></g></svg>`,
+  landing: `<svg viewBox="0 0 320 180" aria-hidden="true"><rect x="48" y="28" width="224" height="134" rx="14" fill="#F4F2FB"/><g fill="#1C1B4D"><circle cx="66" cy="44" r="4"/><circle cx="80" cy="44" r="4"/><circle cx="94" cy="44" r="4"/><rect x="68" y="70" width="120" height="14" rx="7"/><rect x="68" y="92" width="84" height="14" rx="7"/></g><rect x="68" y="122" width="62" height="20" rx="10" fill="#FF5C7A"/><circle cx="226" cy="104" r="26" fill="#FFB21A"/></svg>`
+};
+
+const rejilla = document.getElementById("rejilla");
+const filtros = document.getElementById("filtros");
+const detalle = document.getElementById("detalle");
+const detalleCuerpo = document.getElementById("detalle-cuerpo");
+
+function pintarProyectos() {
+  rejilla.innerHTML = PROYECTOS.map(p => `
+    <button class="tarjeta tipo-${p.tipo}${p.ancha ? " ancha" : ""}" data-id="${p.id}" data-tipo="${p.tipo}" aria-haspopup="dialog">
+      <span class="portada">${PORTADAS[p.tipo]}</span>
+      <span class="tarjeta-cuerpo">
+        <span class="tarjeta-tipo">${TIPOS[p.tipo].nombre}</span>
+        <span class="tarjeta-titulo">${p.titulo}</span>
+        <span class="tarjeta-resumen">${p.resumen}</span>
+        <span class="tarjeta-stack">${p.stack.map(s => `<span class="chip">${s}</span>`).join("")}</span>
+      </span>
+    </button>`).join("");
+}
+
+function pintarFiltros() {
+  const opciones = [["todos", "Todos"], ...Object.entries(TIPOS).map(([k, v]) => [k, v.plural])];
+  filtros.innerHTML = opciones.map(([k, nombre], i) =>
+    `<button class="filtro" data-filtro="${k}" aria-pressed="${i === 0}">${nombre}</button>`).join("");
+}
+
+filtros.addEventListener("click", e => {
+  const boton = e.target.closest(".filtro");
+  if (!boton) return;
+  filtros.querySelectorAll(".filtro").forEach(b => b.setAttribute("aria-pressed", b === boton));
+  const f = boton.dataset.filtro;
+  rejilla.querySelectorAll(".tarjeta").forEach(t => { t.hidden = f !== "todos" && t.dataset.tipo !== f; });
+});
+
+rejilla.addEventListener("click", e => {
+  const tarjeta = e.target.closest(".tarjeta");
+  if (!tarjeta) return;
+  abrirDetalle(PROYECTOS.find(p => p.id === tarjeta.dataset.id));
+});
+
+function abrirDetalle(p) {
+  const consola = p.endpoint ? `
+    <div class="consola">
+      <div class="consola-fila"><span>${p.endpoint}</span>
+        <button class="boton boton-mango" id="probar">Probar endpoint</button></div>
+      <pre id="salida" aria-live="polite">Pulsa "Probar endpoint" para ver la respuesta.</pre>
+    </div>` : "";
+  detalleCuerpo.innerHTML = `
+    <div class="detalle-cabeza">
+      <div><span class="tarjeta-tipo tipo-${p.tipo}">${TIPOS[p.tipo].nombre}</span>
+        <h3 id="detalle-titulo">${p.titulo}</h3></div>
+      <button class="cerrar" id="cerrar" aria-label="Cerrar">✕</button>
+    </div>
+    ${consola}
+    <dl class="ficha">
+      <div><dt>Problema</dt><dd>${p.problema}</dd></div>
+      <div><dt>Mi rol</dt><dd>${p.rol}</dd></div>
+      <div><dt>Resultado</dt><dd>${p.resultado}</dd></div>
+      <div><dt>Tecnologías</dt><dd>${p.stack.join(", ")}</dd></div>
+    </dl>
+    <div class="detalle-acciones">
+      <a class="boton boton-tinta" href="${p.demo}">Abrir demo</a>
+      <a class="boton boton-linea" href="${p.codigo}">Ver código</a>
+    </div>`;
+  detalle.showModal();
+  document.getElementById("cerrar").addEventListener("click", () => detalle.close());
+  const probar = document.getElementById("probar");
+  if (probar) probar.addEventListener("click", () => {
+    const salida = document.getElementById("salida");
+    salida.textContent = "Enviando...";
+    /* En el sitio real: fetch() a tu API de demostración */
+    setTimeout(() => {
+      salida.innerHTML = `<span class="ok">200 OK</span> en 84 ms (respuesta de ejemplo)\n` +
+        JSON.stringify(p.respuesta, null, 2);
+    }, 500);
+  });
+}
+
+detalle.addEventListener("click", e => { if (e.target === detalle) detalle.close(); });
+
+pintarFiltros();
+pintarProyectos();
+</script>
+</body>
+</html>
